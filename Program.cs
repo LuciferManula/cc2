@@ -28,7 +28,31 @@ builder.services.Configure<OpenIdConnectOptions>(Configuration.GetSection("Azure
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+
+// if (!app.Environment.IsDevelopment())
+// {
+//     app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+//     app.UseHsts();
+// }
+
+// app.UseHttpsRedirection();
+// app.UseStaticFiles();
+
+// app.UseRouting();
+
+// app.UseAuthorization();
+
+// app.MapControllerRoute(
+//     name: "default",
+//     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+if (env.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -38,12 +62,22 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+// Add the Microsoft Identity Web cookie policy
+app.UseCookiePolicy();
 app.UseRouting();
-
+// Add the ASP.NET Core authentication service
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    
+    // Add endpoints for Razor pages
+    endpoints.MapRazorPages();
+});
+
 
 app.Run();
