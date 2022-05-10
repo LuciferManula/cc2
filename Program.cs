@@ -1,10 +1,15 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 // builder.Services.AddControllersWithViews();
 
-builder.services.Configure<CookiePolicyOptions>(options =>
+builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
     options.CheckConsentNeeded = context => true;
@@ -14,16 +19,16 @@ builder.services.Configure<CookiePolicyOptions>(options =>
 });
 
 // Configuration to sign-in users with Azure AD B2C
-builder.services.AddMicrosoftIdentityWebAppAuthentication(Configuration, "AzureAdB2C");
+builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration, "AzureAdB2C");
 
-builder.services.AddControllersWithViews()
+builder.Services.AddControllersWithViews()
     .AddMicrosoftIdentityUI();
 
-builder.services.AddRazorPages();
+builder.Services.AddRazorPages();
 
 //Configuring appsettings section AzureAdB2C, into IOptions
-builder.services.AddOptions();
-builder.services.Configure<OpenIdConnectOptions>(Configuration.GetSection("AzureAdB2C"));
+builder.Services.AddOptions();
+builder.Services.Configure<OpenIdConnectOptions>(builder.Configuration.GetSection("AzureAdB2C"));
 
 var app = builder.Build();
 
@@ -48,7 +53,7 @@ var app = builder.Build();
 //     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-if (env.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
