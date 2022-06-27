@@ -25,7 +25,7 @@ public class HomeController : Controller
     }
 
     // [Authorize]
-    public IActionResult Claims()
+    public IActionResult Users()
     {
         return View();
     }
