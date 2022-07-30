@@ -26,7 +26,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 // Configuration to sign-in users with Azure AD B2C
-builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration, "AzureAdB2C");
+builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration, "AzureAd");
 
 builder.Services.AddControllersWithViews()
     .AddMicrosoftIdentityUI();
@@ -35,7 +35,7 @@ builder.Services.AddRazorPages();
 
 //Configuring appsettings section AzureAdB2C, into IOptions
 builder.Services.AddOptions();
-builder.Services.Configure<OpenIdConnectOptions>(builder.Configuration.GetSection("AzureAdB2C"));
+builder.Services.Configure<OpenIdConnectOptions>(builder.Configuration.GetSection("AzureAd"));
 
 var app = builder.Build();
 
