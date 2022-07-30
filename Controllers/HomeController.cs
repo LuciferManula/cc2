@@ -1,7 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CC2.Models;
 using Microsoft.AspNetCore.Authorization;
+using CC2.Models;
 
 namespace CC2.Controllers;
 
@@ -24,8 +28,8 @@ public class HomeController : Controller
         return View();
     }
 
-    // [Authorize]
-    public IActionResult Users()
+    [Authorize]
+    public IActionResult Claims()
     {
         return View();
     }
