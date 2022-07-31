@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'ccwebapp10'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5AB350E6C60F409BBC25727945DF503D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_41F41BEA43D54683BD6A9200EBE08A69 }}
           package: .
